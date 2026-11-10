@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SportPulse - Centro de Alto Rendimiento</title>
+<!-- Tipografía Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+1. VARIABLES Y CSS GLOBAL (Fase 2: Identidad Visual)
+========================================================================== */
+:root {
+--primary: #FF3E3E; /* Rojo Neón / Energía */
+--secondary: #0B0E14; /* Negro Azabache / Fondo */
+--accent: #00F0FF; /* Cian Eléctrico / Destacados */
+--card-bg: #161B22; /* Gris Oscuro / Contenedores */
+--text-main: #F0F6FC; /* Blanco Puro / Texto Primario */
+--text-muted: #8B949E; /* Gris Claro / Texto Secundario */
+--border-color: #30363D; /* Borde elegante */
+--font-title: 'Montserrat', sans-serif;
+--font-body: 'Roboto', sans-serif;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: var(--font-body);
+background-color: var(--secondary);
+color: var(--text-main);
+line-height: 1.6;
+display: flex;
+flex-direction: column;
+min-height: 100vh;
+}
+
+a {
+color: var(--accent);
+text-decoration: none;
+transition: color 0.3s ease;
+}
+
+a:hover {
+color: var(--primary);
+}
+
+img {
+max-width: 100%;
+height: auto;
+display: block;
+}
+
+/* ==========================================================================
+2. PANEL DOCENTE Y ACADÉMICO (Ficha + Estructura)
+========================================================================== */
+.academic-header {
+background: linear-gradient(90deg, #1f242d 0%, #0d1117 100%);
+border-bottom: 2px solid var(--primary);
+padding: 0.8rem 1rem;
+font-size: 0.85rem;
+}
+
+.academic-container {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+gap: 10px;
+}
+
+.academic-title {
+font-weight: bold;
+color: var(--accent);
+}
+
+.btn-academic {
+background-color: var(--primary);
+color: #fff;
+border: none;
+padding: 0.3rem 0.8rem;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.8rem;
+font-weight: bold;
+transition: opacity 0.2s;
+}
+
+.btn-academic:hover {
+opacity: 0.9;
+}
+
+.academic-modal {
+display: none;
+background-color: var(--card-bg);
+border: 1px solid var(--border-color);
+border-radius: 8px;
+padding: 1.5rem;
+margin: 1rem auto;
+max-width: 1200px;
+box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.academic-modal.active {
+display: block;
+}
+
+.ficha-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 1rem;
+background-color: rgba(255, 255, 255, 0.02);
+}
+
+.ficha-table th, .ficha-table td {
+border: 1px solid var(--border-color);
+padding: 0.6rem;
+text-align: left;
+}
+
+.ficha-table th {
+background-color: rgba(255, 62, 62, 0.2);
+color: var(--primary);
+}
+
+.color-dot {
+display: inline-block;
+width: 12px;
+height: 12px;
+border-radius: 50%;
+margin-right: 5px;
+}
+
+/* ==========================================================================
+3. NAVEGACIÓN PRINCIPAL Y SIMULADOR DE ARCHIVOS (PRACTICO 3)
+========================================================================== */
+header.main-header {
+background-color: rgba(11, 14, 20, 0.95);
+position: sticky;
+top: 0;
+z-index: 100;
+border-bottom: 1px solid var(--border-color);
+backdrop-filter: blur(10px);
+}
+
+.nav-container {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+}
+
+.logo-area {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.logo-img {
+width: 45px;
+height: 45px;
+object-fit: contain;
+}
+
+.brand-name {
+font-family: var(--font-title);
+font-size: 1.5rem;
+font-weight: 900;
+letter-spacing: 1px;
+color: #fff;
+}
+
+.brand-name span {
+color: var(--primary);
+}
+
+nav ul {
+display: flex;
+list-style: none;
+gap: 1.2rem;
+}
+
+nav a {
+font-weight: 700;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+padding: 0.4rem 0.6rem;
+border-radius: 4px;
+position: relative;
+}
+
+nav a.active {
+color: var(--primary);
+background-color: rgba(255, 62, 62, 0.1);
+border-bottom: 2px solid var(--primary);
+}
+
+.file-badge {
+display: block;
+font-size: 0.6rem;
+color: var(--text-muted);
+text-transform: lowercase;
+font-weight: normal;
+text-align: center;
+}
+
+/* ==========================================================================
+4. CONTENIDO PRINCIPAL Y PÁGINAS SIMULADAS
+========================================================================== */
+main {
+flex: 1;
+max-width: 1200px;
+width: 100%;
+margin: 0 auto;
+padding: 2rem 1rem;
+}
+
+.page-section {
+display: none;
+animation: fadeIn 0.4s ease-in-out;
+}
+
+.page-section.active {
+display: block;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+h1, h2, h3 {
+font-family: var(--font-title);
+text-transform: uppercase;
+margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; color: #fff; }
+h2 { font-size: 1.8rem; color: var(--accent); border-left: 4px solid var(--primary); padding-left: 0.8rem; }
+h3 { font-size: 1.3rem; color: #fff; margin-top: 1rem; }
+
+p {
+margin-bottom: 1.2rem;
+color: var(--text-muted);
+font-size: 1.05rem;
+}
+
+.hero {
+background: linear-gradient(rgba(11, 14, 20, 0.7), rgba(11, 14, 20, 0.9)),
+url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+padding: 4rem 2rem;
+border-radius: 12px;
+text-align: center;
+margin-bottom: 2.5rem;
+border: 1px solid var(--border-color);
+}
+
+.hero h1 {
+font-size: 3rem;
+margin-bottom: 0.5rem;
+}
+
+.hero p.slogan {
+font-size: 1.4rem;
+color: var(--accent);
+font-weight: 700;
+margin-bottom: 1.5rem;
+}
+
+.btn-cta {
+display: inline-block;
+background-color: var(--primary);
+color: #fff;
+padding: 0.8rem 2rem;
+font-weight: bold;
+border-radius: 30px;
+text-transform: uppercase;
+box-shadow: 0 4px 15px rgba(255, 62, 62, 0.4);
+transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-cta:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255, 62, 62, 0.6);
+color: #fff;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-bottom: 2rem;
+}
+
+.card {
+background-color: var(--card-bg);
+border-radius: 8px;
+padding: 1.5rem;
+border: 1px solid var(--border-color);
+}
+
+ul.styled-list, ol.styled-list {
+margin-left: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+ul.styled-list li, ol.styled-list li {
+margin-bottom: 0.5rem;
+color: var(--text-main);
+}
+
+/* ==========================================================================
+5. TABLA CON BORDES VISIBLES (PRACTICO 4) - PAGINA 2
+========================================================================== */
+.table-container {
+overflow-x: auto;
+margin: 2rem 0;
+}
+
+table.campaign-table {
+width: 100%;
+border-collapse: collapse;
+border: 2px solid var(--primary);
+background-color: var(--card-bg);
+}
+
+table.campaign-table th, table.campaign-table td {
+border: 1px solid var(--border-color);
+padding: 1rem;
+text-align: center;
+}
+
+table.campaign-table th {
+background-color: rgba(255, 62, 62, 0.2);
+color: #fff;
+font-family: var(--font-title);
+font-size: 1rem;
+}
+
+table.campaign-table td img {
+width: 60px;
+height: 60px;
+object-fit: cover;
+border-radius: 50%;
+margin: 0 auto 0.5rem auto;
+border: 2px solid var(--accent);
+}
+
+/* ==========================================================================
+6. GALERÍA ADAPTABLE CSS GRID / MEDIA QUERIES (FASE 3) - PAGINA 3
+========================================================================== */
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 1.2rem;
+margin-top: 1.5rem;
+}
+
+.gallery-item {
+position: relative;
+background-color: var(--card-bg);
+border-radius: 8px;
+overflow: hidden;
+border: 1px solid var(--border-color);
+transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-item:hover {
+transform: translateY(-5px);
+border-color: var(--primary);
+}
+
+.gallery-item img {
+width: 100%;
+height: 220px;
+object-fit: cover;
+}
+
+.gallery-caption {
+padding: 0.8rem;
+font-size: 0.9rem;
+text-align: center;
+background-color: rgba(22, 27, 34, 0.9);
+color: var(--text-main);
+font-weight: bold;
+}
+
+.gif-banner {
+width: 100%;
+height: 120px;
+object-fit: cover;
+border-radius: 8px;
+margin: 1.5rem 0;
+border: 2px dashed var(--accent);
+}
+
+/* ==========================================================================
+7. FORMULARIO DE CONTACTO - PAGINA 6
+========================================================================== */
+.form-group {
+margin-bottom: 1.2rem;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.4rem;
+font-weight: bold;
+color: var(--text-main);
+}
+
+.form-control {
+width: 100%;
+padding: 0.8rem;
+border-radius: 4px;
+background-color: rgba(255, 255, 255, 0.05);
+border: 1px solid var(--border-color);
+color: #fff;
+font-family: var(--font-body);
+}
+
+.form-control:focus {
+outline: none;
+border-color: var(--accent);
+}
+
+textarea.form-control {
+resize: vertical;
+min-height: 120px;
+}
+
+/* ==========================================================================
+8. FOOTER GENERAL
+========================================================================== */
+footer {
+background-color: #06080b;
+border-top: 1px solid var(--border-color);
+padding: 2rem 1rem;
+margin-top: auto;
+text-align: center;
+font-size: 0.9rem;
+color: var(--text-muted);
+}
+
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: center;
+gap: 1rem;
+}
+
+.footer-links a {
+margin: 0 0.5rem;
+}
+
+/* ==========================================================================
+9. DISEÑO ADAPTABLE / MEDIA QUERIES (FASE 3)
+========================================================================== */
+@media (max-width: 900px) {
+.gallery-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+.grid-2 {
+grid-template-columns: 1fr;
+}
+.hero h1 {
+font-size: 2.2rem;
+}
+}
+
+@media (max-width: 600px) {
+.nav-container {
+flex-direction: column;
+gap: 1rem;
+}
+nav ul {
+flex-wrap: wrap;
+justify-content: center;
+gap: 0.4rem;
+}
+nav a {
+font-size: 0.75rem;
+padding: 0.3rem 0.4rem;
+}
+.gallery-grid {
+grid-template-columns: 1fr;
+}
+.hero {
+padding: 2rem 1rem;
+}
+.hero h1 {
+font-size: 1.7rem;
+}
+.hero p.slogan {
+font-size: 1.1rem;
+}
+table.campaign-table th, table.campaign-table td {
+padding: 0.5rem;
+font-size: 0.85rem;
+}
+}
+</style>
+</head>
+<body>
+
+<!-- ==========================================================================
+PANEL ACADÉMICO EVALUATIVO (DOCENTE)
+========================================================================== -->
+<div class="academic-header">
+<div class="academic-container">
+<div>
+<span class="academic-title">🚀 Proyecto Final Integrador:</span> 1º MB Gestión y Administración - Páginas Web
+</div>
+<div>
+<button class="btn-academic" onclick="toggleAcademicModal()">📋 Ver Ficha & Estructura</button>
+</div>
+</div>
+</div>
+
+<div id="academicModal" class="academic-modal">
+<h2>📋 Ficha de Identidad del Proyecto</h2>
+<table class="ficha-table">
+<thead>
+<tr>
+<th>Campo</th>
+<th>Descripción del Proyecto Integrador</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nombre del Proyecto / Marca</strong></td>
+<td>SportPulse - High Performance Club</td>
+</tr>
+<tr>
+<td><strong>Tema / Rubro</strong></td>
+<td>Deporte de Alto Rendimiento, Gimnasio Funcional y Nutrición Deportiva</td>
+</tr>
+<tr>
+<td><strong>Público Objetivo</strong></td>
+<td>Jóvenes y adultos (18 a 45 años), atletas, deportistas y entusiastas del fitness.</td>
+</tr>
+<tr>
+<td><strong>Paleta de Colores</strong></td>
+<td>
+<span class="color-dot" style="background:#FF3E3E"></span>Rojo Neón (#FF3E3E)<br>
+<span class="color-dot" style="background:#0B0E14"></span>Negro Azabache (#0B0E14)<br>
+<span class="color-dot" style="background:#00F0FF"></span>Cian Eléctrico (#00F0FF)
+</td>
+</tr>
+<tr>
+<td><strong>Tipografía Propuesta</strong></td>
+<td>Montserrat (Títulos) + Roboto (Texto de Cuerpo)</td>
+</tr>
+<tr>
+<td><strong>Slogan / Mensaje Central</strong></td>
+<td>"Desata tu Potencial: El Límite es Solo el Comienzo"</td>
+</tr>
+</tbody>
+</table>
+
+<h2 style="margin-top: 1.5rem;">📂 Estructura de Archivos del Sitio (/Campaña_SportPulse)</h2>
+<p style="font-family: monospace; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 4px; color: var(--accent);">
+/Campaña_SportPulse<br>
+│── index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Presentación / Home + Estilos Incrustados/Internos)<br>
+│── pagina2.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Servicios / Tabla Comparativa con Bordes Visibles)<br>
+│── pagina3.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Galería Adaptable con CSS Grid / Media Queries)<br>
+│── pagina4.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Nutrición Deportiva y Alimentos Clave)<br>
+│── pagina5.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Blog de Noticias y Calculadora de IMC)<br>
+│── pagina6.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Contacto / Formulario y Redes Sociales)<br>
+│── estilos.css &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Hoja de Estilos Enlazada en Páginas 2 a 6)<br>
+└── /recursos<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── imagen1.jpg &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Fotografía Principal de Campaña)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── imagen2.png &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Logo del Proyecto con Transparencia)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── imagen3.gif &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Banner Animado de Campaña)
+</p>
+<div style="text-align: right; margin-top: 1rem;">
+<button class="btn-academic" onclick="toggleAcademicModal()">Cerrar Vista Docente</button>
+</div>
+</div>
+
+<!-- ==========================================================================
+BARRA DE NAVEGACIÓN PRINCIPAL (PRACTICO 3)
+========================================================================== -->
+<header class="main-header">
+<div class="nav-container">
+<div class="logo-area">
+<img src="https://img.icons8.com/emoticons/100/ff3e3e/lightning.png" alt="SportPulse Logo Transparente" class="logo-img">
+<div class="brand-name">SPORT<span>PULSE</span></div>
+</div>
+<nav>
+<ul>
+<li>
+<a href="#index" id="nav-index" class="active" onclick="navigate('index')">
+Home
+<span class="file-badge">index.html</span>
+</a>
+</li>
+<li>
+<a href="#pagina2" id="nav-pagina2" onclick="navigate('pagina2')">
+Programas
+<span class="file-badge">pagina2.html</span>
+</a>
+</li>
+<li>
+<a href="#pagina3" id="nav-pagina3" onclick="navigate('pagina3')">
+Galería
+<span class="file-badge">pagina3.html</span>
+</a>
+</li>
+<li>
+<a href="#pagina4" id="nav-pagina4" onclick="navigate('pagina4')">
+Nutrición
+<span class="file-badge">pagina4.html</span>
+</a>
+</li>
+<li>
+<a href="#pagina5" id="nav-pagina5" onclick="navigate('pagina5')">
+Blog
+<span class="file-badge">pagina5.html</span>
+</a>
+</li>
+<li>
+<a href="#pagina6" id="nav-pagina6" onclick="navigate('pagina6')">
+Contacto
+<span class="file-badge">pagina6.html</span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- ==========================================================================
+CUERPO DINÁMICO DE PÁGINAS (6 PÁGINAS INTEGRADAS)
+========================================================================== -->
+<main>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 1: INDEX.HTML (Home / Presentación)
+------------------------------------------------------------------------ -->
+<section id="sec-index" class="page-section active">
+<div class="hero">
+<h1>Centro de Alto Rendimiento</h1>
+<p class="slogan">"Desata tu Potencial: El Límite es Solo el Comienzo"</p>
+<a href="#pagina6" onclick="navigate('pagina6')" class="btn-cta">¡Unite a la Campaña Hoy!</a>
+</div>
+
+<div class="grid-2">
+<div>
+<h2>Bienvenido a la Revolución SportPulse</h2>
+<p>Acá no venimos a perder el tiempo. En <strong>SportPulse</strong> armamos un espacio donde el esfuerzo diario se traduce en resultados reales. Nuestra campaña combina entrenamiento funcional de alta exigencia, asesoramiento nutricional personalizado y una comunidad que te empuja a dar siempre un poco más en cada sesión.</p>
+<p>Ya sea que entrenes para competir o simplemente quieras romper tus propias marcas personales, este es tu lugar.</p>
+
+<h3>Pilares de Nuestra Campaña (Práctico 5: Lista Desordenada)</h3>
+<ul class="styled-list">
+<li><strong>Evaluación Biométrica:</strong> Control de composición corporal y nivel físico inicial.</li>
+<li><strong>Entrenamiento Inteligente:</strong> Rutinas guiadas por profesores especialistas.</li>
+<li><strong>Combustible Nutricional:</strong> Alimentos reales y planes enfocados en tu rendimiento.</li>
+<li><strong>Seguimiento Constante:</strong> App y reportes de progreso semanales.</li>
+</ul>
+</div>
+
+<div>
+<img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Atleta entrenando en SportPulse" style="border-radius: 8px; border: 1px solid var(--border-color);">
+
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z6Zmh4ZHFybnRxcmk0ZWV3NHBmdW03OGZxbzFycmsxbTJxd3RxYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKT0XDE18S97p3a/giphy.gif" alt="Animación de ritmo cardíaco neón" class="gif-banner">
+</div>
+</div>
+
+<div class="card">
+<h3>Pasos para Sumarte a SportPulse (Práctico 5: Lista Ordenada)</h3>
+<ol class="styled-list">
+<li>Coordiná tu visita inicial sin cargo desde la sección de contacto.</li>
+<li>Realizá el diagnóstico físico con nuestro equipo técnico.</li>
+<li>Elegí el programa y el plan de nutrición que mejor se acoplen a tus horarios.</li>
+<li>Empezá a entrenar y formá parte activa de la comunidad.</li>
+</ol>
+</div>
+</section>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 2: PAGINA2.HTML (Servicios y Tabla Comparativa)
+------------------------------------------------------------------------ -->
+<section id="sec-pagina2" class="page-section">
+<h2>Programas y Tarifas de Entrenamiento</h2>
+<p>Revisá nuestras opciones y elegí el formato que mejor se adapte a tus metas de preparación física y salud.</p>
+
+<div class="table-container">
+<table class="campaign-table">
+<thead>
+<tr>
+<th>Imagen</th>
+<th>Programa</th>
+<th>Frecuencia</th>
+<th>Qué Incluye</th>
+<th>Inversión</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=150&q=80" alt="Cross Training">
+</td>
+<td><strong>Cross Training Pro</strong></td>
+<td>5 Días / Semana</td>
+<td>Pistas de alta intensidad, coach asignado y seguimiento de cargas.</td>
+<td>$2.500 / mes</td>
+<td><a href="#pagina6" onclick="navigate('pagina6')">Inscribirme →</a></td>
+</tr>
+<tr>
+<td>
+<img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=150&q=80" alt="Functional Balance">
+</td>
+<td><strong>Functional & Balance</strong></td>
+<td>3 Días / Semana</td>
+<td>Clases de movilidad, estiramiento dinámico, fuerza base y guía de hidratación.</td>
+<td>$1.800 / mes</td>
+<td><a href="#pagina6" onclick="navigate('pagina6')">Inscribirme →</a></td>
+</tr>
+<tr>
+<td>
+<img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=150&q=80" alt="Atleta Elite">
+</td>
+<td><strong>Atleta Élite 360</strong></td>
+<td>Acceso Total (7/7)</td>
+<td>Entrenador personal exclusivo + Plan nutricional avanzado + Acceso libre.</td>
+<td>$3.900 / mes</td>
+<td><a href="#pagina6" onclick="navigate('pagina6')">Inscribirme →</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+* Tabla con bordes visibles requerida por cátedra, celdas con imágenes descriptivas y enlaces directos operativos.
+</p>
+</section>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 3: PAGINA3.HTML (Galería Adaptable CSS Grid)
+------------------------------------------------------------------------ -->
+<section id="sec-pagina3" class="page-section">
+<h2>Galería de Instalaciones y Campaña</h2>
+<p>Diseño Adaptable (Fase 3): La grilla responde automáticamente a resoluciones de pantallas grandes (4 columnas), tablets (2 columnas) y celulares (1 columna).</p>
+
+<div class="gallery-grid">
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Zona de Pesas Libres">
+<div class="gallery-caption">Zona de Pesas Libres</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80" alt="Entrenamiento de Cardio">
+<div class="gallery-caption">Área de Cardio Neón</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=600&q=80" alt="Entrenamiento Funcional">
+<div class="gallery-caption">Circuito Funcional</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Sesión de Nutrición">
+<div class="gallery-caption">Gabinete Nutricional</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" alt="Atleta Masculino">
+<div class="gallery-caption">Resistencia Muscular</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?auto=format&fit=crop&w=600&q=80" alt="Atleta Femenina">
+<div class="gallery-caption">Flexibilidad & Balance</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" alt="Gimnasio Equipamiento">
+<div class="gallery-caption">Maquinaria de Vanguardia</div>
+</div>
+<div class="gallery-item">
+<img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=600&q=80" alt="Piscina Deportiva">
+<div class="gallery-caption">Recuperación e Hidratación</div>
+</div>
+</div>
+</section>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 4: PAGINA4.HTML (Nutrición y Alimentos Clave)
+------------------------------------------------------------------------ -->
+<section id="sec-pagina4" class="page-section">
+<h2>Nutrición Deportiva y Alimentos Clave</h2>
+<p>El ejercicio por sí solo no basta. Para rendir al máximo y construir masa muscular magra, lo que ponés en tu plato marca la diferencia entre estancarte o progresar cada semana.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3>Combustible Inteligente: Los Alimentos Esenciales</h3>
+<p>Nuestros nutricionistas recomiendan priorizar alimentos reales, densos en nutrientes y sin procesados innecesarios:</p>
+<ul class="styled-list">
+<li><strong>Proteínas de alto valor biológico:</strong> Huevos, pechuga de pollo, carne vacuna magra, pescado fresco y legumbres. Fundamentales para reparar las fibras musculares tras el esfuerzo.</li>
+<li><strong>Carbohidratos complejos:</strong> Avena, arroz integral, batata y quinoa. Te entregan la energía sostenida que necesitás durante rutinas de alta exigencia.</li>
+<li><strong>Grasas saludables:</strong> Palta, frutos secos, aceite de oliva y semillas de chía o lino. Claves para regular hormonas y proteger articulaciones.</li>
+<li><strong>Hidratación constante:</strong> Agua y electrolitos naturales para evitar la fatiga prematura y calambres.</li>
+</ul>
+</div>
+
+<div>
+<img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80" alt="Alimentos saludables para deportistas" style="border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem;">
+<div class="card">
+<h3>El Plato Ideal Post-Entrenamiento</h3>
+<p>Dentro de la hora posterior a terminar tu rutina, buscá combinar una fuente de proteína magra con carbohidratos de rápida absorción para reponer el glucógeno muscular y acelerar la recuperación.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 5: PAGINA5.HTML (Blog / Noticias / Herramienta de IMC)
+------------------------------------------------------------------------ -->
+<section id="sec-pagina5" class="page-section">
+<h2>Novedades y Artículos del Blog</h2>
+
+<div class="grid-2">
+<div class="card">
+<h3>¿Por qué la mala hidratación arruina tu entrenamiento?</h3>
+<p><em>Publicado el 8 de Noviembre, 2026</em></p>
+<p>Perder tan solo un 2% de agua corporal reduce drásticamente tu fuerza y concentración. Te contamos cómo armar tu estrategia de hidratación antes, durante y después de ir al gimnasio.</p>
+</div>
+
+<div class="card">
+<h3>Lanzamiento del Desafío SportPulse 30 Días</h3>
+<p><em>Publicado el 1 de Noviembre, 2026</em></p>
+<p>¡Llega la competencia interna más esperada! Sumá puntos asistiendo a tus clases, cumpliendo tus metas nutricionales y participá por premios exclusivos de la marca.</p>
+</div>
+</div>
+
+<div class="card" style="margin-top: 1.5rem; border-color: var(--accent);">
+<h3>🧮 Calculadora Rápida de Masa Corporal (IMC)</h3>
+<p>Ingresá tus datos para obtener un cálculo orientativo de tu índice de masa corporal:</p>
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;">
+<input type="number" id="calc-peso" placeholder="Peso (kg)" class="form-control" style="width: 150px;">
+<input type="number" id="calc-altura" placeholder="Altura (cm)" class="form-control" style="width: 150px;">
+<button class="btn-academic" onclick="calcularIMC()" style="padding: 0.8rem 1.5rem;">Calcular</button>
+</div>
+<div id="imc-resultado" style="font-weight: bold; color: var(--accent);"></div>
+</div>
+</section>
+
+<!-- ------------------------------------------------------------------------
+PÁGINA 6: PAGINA6.HTML (Contacto y Redes Sociales)
+------------------------------------------------------------------------ -->
+<section id="sec-pagina6" class="page-section">
+<h2>Formulario de Inscripción y Contacto</h2>
+<p>¿Querés arrancar con tu transformación o tenés alguna duda sobre los planes? Mandanos tu consulta y te respondemos en el día.</p>
+
+<div class="grid-2">
+<div class="card">
+<form onsubmit="handleSubmit(event)">
+<div class="form-group">
+<label for="nombre">Nombre Completo:</label>
+<input type="text" id="nombre" required class="form-control" placeholder="Ej: Juan Pérez">
+</div>
+
+<div class="form-group">
+<label for="email">Correo Electrónico:</label>
+<input type="email" id="email" required class="form-control" placeholder="juan@correo.com">
+</div>
+
+<div class="form-group">
+<label for="programa">Programa de Interés:</label>
+<select id="programa" class="form-control" style="background: #161b22; color:#fff;">
+<option value="cross">Cross Training Pro</option>
+<option value="functional">Functional & Balance</option>
+<option value="elite">Atleta Élite 360</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="mensaje">Mensaje o Consulta:</label>
+<textarea id="mensaje" required class="form-control" placeholder="Escribí tu consulta acá..."></textarea>
+</div>
+
+<button type="submit" class="btn-cta" style="border: none; cursor: pointer; width: 100%;">Enviar Solicitud</button>
+</form>
+<div id="form-feedback" style="margin-top: 1rem; font-weight: bold; text-align: center;"></div>
+</div>
+
+<div>
+<div class="card" style="margin-bottom: 1.5rem;">
+<h3>Ubicación y Horarios</h3>
+<p>📍 Av. de los Deportes 1234, Ciudad Deportiva</p>
+<p>⏰ Lunes a Viernes: 06:00 - 22:00 hs</p>
+<p>⏰ Sábados: 08:00 - 18:00 hs</p>
+<p>📞 Teléfono: +598 99 123 456</p>
+</div>
+
+<div class="card">
+<h3>Redes Sociales Oficiales</h3>
+<p>Seguí la campaña y compartí tus entrenamientos usando el hashtag <strong>#SportPulse2026</strong>:</p>
+<ul class="styled-list">
+<li>Instagram: <a href="https://instagram.com" target="_blank">@SportPulse_Oficial</a></li>
+<li>YouTube: <a href="https://youtube.com" target="_blank">SportPulse TV</a></li>
+<li>Facebook: <a href="https://facebook.com" target="_blank">/SportPulseClub</a></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- ==========================================================================
+FOOTER GENERAL CON RETORNO A HOME (PRACTICO 3)
+========================================================================== -->
+<footer>
+<div class="footer-content">
+<div>
+<strong>SportPulse High Performance Club</strong> &copy; 2026 - Proyecto Integrador Páginas Web
+</div>
+<div class="footer-links">
+<a href="#index" onclick="navigate('index')">Volver al Inicio (index.html)</a> |
+<a href="#pagina6" onclick="navigate('pagina6')">Contacto</a>
+</div>
+</div>
+</footer>
+
+<!-- ==========================================================================
+LÓGICA JAVASCRIPT
+========================================================================== -->
+<script>
+function navigate(pageId) {
+const sections = document.querySelectorAll('.page-section');
+sections.forEach(sec => sec.classList.remove('active'));
+
+const navLinks = document.querySelectorAll('nav a');
+navLinks.forEach(link => link.classList.remove('active'));
+
+const targetSection = document.getElementById('sec-' + pageId);
+if (targetSection) {
+targetSection.classList.add('active');
+}
+
+const targetNav = document.getElementById('nav-' + pageId);
+if (targetNav) {
+targetNav.classList.add('active');
+}
+
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleAcademicModal() {
+const modal = document.getElementById('academicModal');
+modal.classList.toggle('active');
+}
+
+function handleSubmit(e) {
+e.preventDefault();
+const feedback = document.getElementById('form-feedback');
+feedback.style.color = '#00F0FF';
+feedback.textContent = '¡Gracias! Tu solicitud de inscripción fue enviada con éxito.';
+e.target.reset();
+}
+
+function calcularIMC() {
+const peso = parseFloat(document.getElementById('calc-peso').value);
+const alturaCm = parseFloat(document.getElementById('calc-altura').value);
+const resDiv = document.getElementById('imc-resultado');
+
+if (peso > 0 && alturaCm > 0) {
+const alturaM = alturaCm / 100;
+const imc = (peso / (alturaM * alturaM)).toFixed(1);
+let estado = '';
+
+if (imc < 18.5) estado = 'Bajo peso';
+else if (imc < 25) estado = 'Peso saludable / Atleta';
+else if (imc < 30) estado = 'Sobrepeso moderado';
+else estado = 'Obesidad';
+
+resDiv.textContent = `Tu IMC estimado es ${imc} (${estado}).`;
+} else {
+resDiv.textContent = 'Ingresá valores reales de peso y altura para calcular.';
+}
+}
+
+window.addEventListener('load', () => {
+const hash = window.location.hash.replace('#', '');
+if (hash && ['index', 'pagina2', 'pagina3', 'pagina4', 'pagina5', 'pagina6'].includes(hash)) {
+navigate(hash);
+}
+});
+</script>
+</body>
+</html>
